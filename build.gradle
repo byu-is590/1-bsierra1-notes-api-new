@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.6.2'
+    id 'org.springframework.boot' version '2.6.3'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
     id 'jacoco'
@@ -23,15 +23,16 @@ repositories {
     mavenCentral()
 }
 
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
-    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
-test {
+tasks.named('test') {
     useJUnitPlatform()
     finalizedBy jacocoTestReport
 }
@@ -55,7 +56,7 @@ jacocoTestCoverageVerification {
         rule {
             enabled = true
             limit {
-                minimum = 0.5
+                minimum = 0.75
             }
         }
     }
