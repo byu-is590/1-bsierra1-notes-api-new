@@ -58,16 +58,15 @@ create UNIQUE INDEX `role_name_unique` on role_bsierra1(role_name);
 
 DROP TABLE IF EXISTS `sharednote_bsierra1`;
 CREATE TABLE `sharednote_bsierra1` (
-                                       `id` bigint(20) NOT NULL AUTO_INCREMENT,
                                        `user_id` bigint(20) NOT NULL,
                                        `note_id` bigint(20) NOT NULL,
                                        `role_id` varchar(50) NOT NULL,
                                        `modified_at` timestamp,
                                        `created_at` timestamp,
-                                       PRIMARY KEY (`id`),
+                                       PRIMARY KEY (`user_id`,`note_id`),
                                        FOREIGN KEY (`user_id`) REFERENCES user_bsierra1(id),
                                        FOREIGN KEY (`note_id`) REFERENCES section_bsierra1(id),
                                        FOREIGN KEY (`role_id`) REFERENCES role_bsierra1(id)
 );
 
-create UNIQUE INDEX `shared_note_id_unique` on sharednote_bsierra1(id);
+-- create UNIQUE INDEX `shared_note_id_unique` on sharednote_bsierra1(id);
