@@ -72,7 +72,7 @@ jacocoTestCoverageVerification {
 flyway {
     url = 'jdbc:mysql://is590r-01.cbyw5xk6upzj.us-west-2.rds.amazonaws.com:3306/notes_bsierra1'
     user = 'root'
-    password = 'is590r-123!'
+    password = ''
 //    schemas = ['notes_bsierra1']
 //    defaultSchema = 'notes_bsierra1'
 }
