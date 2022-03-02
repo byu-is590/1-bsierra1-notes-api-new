@@ -32,7 +32,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'commons-codec:commons-codec'
     implementation 'mysql:mysql-connector-java:8.0.25'
-    implementation 'org.springdoc:springdoc-openapi-ui:1.6.6'
     runtimeOnly 'mysql:mysql-connector-java'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
@@ -71,17 +70,17 @@ jacocoTestCoverageVerification {
 }
 
 flyway {
-    url = 'jdbc:mysql://127.0.0.1:3305/'
+    url = 'jdbc:mysql://is590r-01.cbyw5xk6upzj.us-west-2.rds.amazonaws.com:3306/notes_bsierra1'
     user = 'root'
-    password = 'mypass'
-    schemas = ['notes_bsierra1']
-    defaultSchema = 'notes_bsierra1'
+    password = 'is590r-123!'
+//    schemas = ['notes_bsierra1']
+//    defaultSchema = 'notes_bsierra1'
 }
 
 dockerRun {
     name 'notes-mysql'
     image 'mysql:latest'
     ports '3306:3306'
-    env 'MYSQL_RANDOM_ROOT_PASSWORD': 'yes'
+    env 'MYSQL_ROOT_PASSWORD': 'mypass'
     clean true
 }
