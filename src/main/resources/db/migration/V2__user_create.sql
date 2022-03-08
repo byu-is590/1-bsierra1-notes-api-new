@@ -1,1 +1,0 @@
-ALTER TABLE `user` MODIFY `created_at` timestamp(6);

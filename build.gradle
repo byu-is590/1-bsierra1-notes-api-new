@@ -43,6 +43,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
+    implementation 'com.vladmihalcea:hibernate-types-5:1.2.0'
 }
 
 tasks.named('test') {
@@ -76,7 +77,7 @@ jacocoTestCoverageVerification {
 }
 
 flyway {
-    url = 'jdbc:mysql://127.0.0.1:3305/notes_bsierra1'
+    url = 'jdbc:mysql://127.0.0.1:3305'
     user = 'root'
     password = 'mypass'
     schemas = ['notes_bsierra1']

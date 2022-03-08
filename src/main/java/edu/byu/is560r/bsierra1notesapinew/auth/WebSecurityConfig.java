@@ -34,7 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .addFilterAfter(authTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/auth").permitAll()
+                .antMatchers(HttpMethod.POST, "/v1/auth/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/swagger-ui**").permitAll()
                 .antMatchers("/v2/api-docs",
                         "/configuration/ui",
@@ -42,7 +42,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/configuration/security",
                         "/swagger-ui.html",
                         "/swagger-ui/**",
-                        "/webjars/**").permitAll();
+                        "/webjars/**").permitAll()
+                .antMatchers(
+                        "/v1/**"
+                ).authenticated();
                 //.anyRequest().authenticated();
     }
 }

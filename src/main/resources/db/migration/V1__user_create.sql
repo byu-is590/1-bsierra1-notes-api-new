@@ -1,81 +1,63 @@
-# -- USERS
-# DROP TABLE IF EXISTS `user_bsierra1`;
-# CREATE TABLE `user_bsierra1` (
-#     `id` bigint(20) NOT NULL AUTO_INCREMENT,
-#     `first_name` varchar(50) NOT NULL,
-#     `email` varchar(100) NOT NULL UNIQUE,
-#     `password_hash` varchar(64) NOT NULL,
-#     `created_at` timestamp,
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user`
+(
+    `id`            bigint   NOT NULL AUTO_INCREMENT,
+    `email`         varchar(100) NOT NULL UNIQUE,
+    `first_name`    varchar(100) NOT NULL,
+    `last_name`     varchar(100) NOT NULL,
+    `password_hash` varchar(64)  NOT NULL,
+    `created_at`    timestamp(6),
+    PRIMARY KEY (`id`)
+);
+
+# DROP TABLE IF EXISTS `course`;
+# CREATE TABLE `course`
+# (
+#     `id`              bigint(20)   NOT NULL AUTO_INCREMENT,
+#     `name`            varchar(100) NOT NULL,
+#     `instructor_name` varchar(100) NOT NULL,
+#     `course_number`   varchar(100) NOT NULL,
+#     `created_at`      timestamp,
 #     PRIMARY KEY (`id`)
 # );
 #
-# create UNIQUE INDEX `user_email_unique` on user_bsierra1(email);
-#
-# -- SECTION
-# DROP TABLE IF EXISTS `section_bsierra1`;
-# CREATE TABLE `section_bsierra1` (
-#                                     `id` bigint(20) NOT NULL AUTO_INCREMENT,
-#                                     `section_name` varchar(50) NOT NULL,
-#                                     `color` varchar(50) NOT NULL ,
-#                                     `modified_at` timestamp,
-#                                     `created_at` timestamp,
-#                                     PRIMARY KEY (`id`)
+# DROP TABLE IF EXISTS `note`;
+# CREATE TABLE `note`
+# (
+#     `id`         bigint(20)   NOT NULL AUTO_INCREMENT,
+#     `name`       varchar(100) NOT NULL,
+#     `status`     int          NOT NULL,
+#     `data`       json         NOT NULL,
+#     `owner_id`   bigint(20)   NOT NULL,
+#     `course_id`  bigint(20)   NOT NULL,
+#     `created_at` timestamp,
+#     FOREIGN KEY (`course_id`) REFERENCES `course` (`id`),
+#     FOREIGN KEY (`owner_id`) REFERENCES `user` (`id`),
+#     PRIMARY KEY (`id`)
 # );
 #
-# create UNIQUE INDEX `section_name_unique` on section_bsierra1(section_name);
-#
-#
-# -- NOTE
-#
-# DROP TABLE IF EXISTS `note_bsierra1`;
-# CREATE TABLE `note_bsierra1` (
-#                                  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-#                                  `section_id` bigint(20) NOT NULL,
-#                                  `first_name` varchar(50) NOT NULL,
-#                                  `title` varchar(100) NOT NULL,
-#                                  `content` text,
-#                                  `archived` int,
-#                                  `modified_at` timestamp,
-#                                  `created_at` timestamp,
-#                                  PRIMARY KEY (`id`),
-#                                  FOREIGN KEY (`section_id`) REFERENCES section_bsierra1(id)
+# DROP TABLE IF EXISTS `note_role`;
+# CREATE TABLE `note_role`
+# (
+#     `id`   bigint(20)   NOT NULL AUTO_INCREMENT,
+#     `role` varchar(100) NOT NULL,
+#     PRIMARY KEY (`id`)
 # );
 #
-# create UNIQUE INDEX `note_title_unique` on note_bsierra1(title);
-#
-# -- ROLE
-#
-# DROP TABLE IF EXISTS `role_bsierra1`;
-# CREATE TABLE `role_bsierra1` (
-#                                  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-#                                  `role_name` varchar(50) NOT NULL,
-#                                  PRIMARY KEY (`id`)
+# DROP TABLE IF EXISTS `user_note`;
+# CREATE TABLE `user_note`
+# (
+#     `user_id`    bigint(20) NOT NULL,
+#     `note_id`    bigint(20) NOT NULL,
+#     `role_id`    bigint(20) NOT NULL,
+#     `created_at` timestamp,
+#     FOREIGN KEY (`role_id`) REFERENCES `note_role` (`id`),
+#     FOREIGN KEY (`note_id`) REFERENCES `note` (`id`),
+#     FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+#     PRIMARY KEY (`user_id`, `note_id`)
 # );
-#
-# create UNIQUE INDEX `role_name_unique` on role_bsierra1(role_name);
-#
-# -- SHARED NOTE
-#
-# DROP TABLE IF EXISTS `sharednote_bsierra1`;
-# CREATE TABLE `sharednote_bsierra1` (
-#                                        `user_id` bigint(20) NOT NULL,
-#                                        `note_id` bigint(20) NOT NULL,
-#                                        `role_id` varchar(50) NOT NULL,
-#                                        `modified_at` timestamp,
-#                                        `created_at` timestamp,
-#                                        PRIMARY KEY (`user_id`,`note_id`),
-#                                        FOREIGN KEY (`user_id`) REFERENCES user_bsierra1(id),
-#                                        FOREIGN KEY (`note_id`) REFERENCES section_bsierra1(id),
-#                                        FOREIGN KEY (`role_id`) REFERENCES role_bsierra1(id)
-# );
-#
-# -- create UNIQUE INDEX `shared_note_id_unique` on sharednote_bsierra1(id);
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
-                        `id` bigint NOT NULL AUTO_INCREMENT,
-                        `first_name` varchar(50) NOT NULL,
-                        `email` varchar(100) NOT NULL UNIQUE,
-                        `password_hash` varchar(64) NOT NULL,
-                        `created_at` timestamp,
-                        PRIMARY KEY (`id`)
-);
+
+CREATE UNIQUE INDEX UK_user_email_unique
+    ON user (email);
+
+# ALTER TABLE `user` MODIFY `created_at` timestamp(6);
