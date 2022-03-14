@@ -76,13 +76,23 @@ jacocoTestCoverageVerification {
     }
 }
 
+// dev settings
 flyway {
-    url = 'jdbc:mysql://127.0.0.1:3305'
+    url = 'jdbc:mysql://is590r-01.cbyw5xk6upzj.us-west-2.rds.amazonaws.com:3306'
     user = 'root'
-    password = 'mypass'
+    password = 'is590r-123!'
     schemas = ['notes_bsierra1']
     defaultSchema = 'notes_bsierra1'
 }
+
+// local settings
+//flyway {
+//    url = 'jdbc:mysql://127.0.0.1:3305'
+//    user = 'root'
+//    password = 'mypass'
+//    schemas = ['notes_bsierra1']
+//    defaultSchema = 'notes_bsierra1'
+//}
 
 dockerRun {
     name 'notes-mysql'
